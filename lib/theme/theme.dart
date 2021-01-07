@@ -12,7 +12,7 @@ ThemeData kLightTheme = ThemeData(
     headline5: headingH1,
     headline6: headingH2,
   ),
-  scaffoldBackgroundColor: kBackgroundColor,
+  scaffoldBackgroundColor: kBackgroundColor1,
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(4),

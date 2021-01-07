@@ -1,8 +1,7 @@
+import 'package:ceemtax_service/modules/features/appointment/view/appointment_page.dart';
 import 'package:ceemtax_service/modules/features/home_page/widgets/home_page_button_widget.dart';
-import 'package:ceemtax_service/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -23,7 +22,7 @@ class HomePage extends StatelessWidget {
             ),
             HomePageButton(
               title: "APPOINTMENT",
-              onPressed: () {},
+              onPressed: () => Get.to(AppointmentPage()),
             ),
             SizedBox(height: Get.height / 20),
             HomePageButton(
