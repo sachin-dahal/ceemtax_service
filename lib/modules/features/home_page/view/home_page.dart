@@ -1,3 +1,4 @@
+import 'package:ceemtax_service/modules/data/models/animation/fade_animation.dart';
 import 'package:ceemtax_service/modules/features/appointment/view/appointment_page.dart';
 import 'package:ceemtax_service/modules/features/home_page/widgets/home_page_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -20,24 +21,36 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            HomePageButton(
-              title: "APPOINTMENT",
-              onPressed: () => Get.to(AppointmentPage()),
+            FadeAnimation(
+              1.0,
+              HomePageButton(
+                title: "APPOINTMENT",
+                onPressed: () => Get.to(AppointmentPage()),
+              ),
             ),
             SizedBox(height: Get.height / 20),
-            HomePageButton(
-              title: "FILL FORM",
-              onPressed: () {},
+            FadeAnimation(
+              1.2,
+              HomePageButton(
+                title: "FILL FORM",
+                onPressed: () {},
+              ),
             ),
             SizedBox(height: Get.height / 20),
-            HomePageButton(
-              title: "CONTACT US",
-              onPressed: () {},
+            FadeAnimation(
+              1.4,
+              HomePageButton(
+                title: "CONTACT US",
+                onPressed: () {},
+              ),
             ),
             SizedBox(height: Get.height / 20),
-            HomePageButton(
-              title: "OUR STAFF",
-              onPressed: () {},
+            FadeAnimation(
+              1.6,
+              HomePageButton(
+                title: "OUR STAFF",
+                onPressed: () {},
+              ),
             ),
           ],
         ),

@@ -15,7 +15,7 @@ class AppointmentPageController extends GetxController {
   Widget buildWebView() {
     return Container(
       padding: EdgeInsets.symmetric(
-        vertical: Get.height / 10.0,
+        vertical: Get.height / 15.0,
         horizontal: Get.height / 40.0,
       ),
       child: WebView(
