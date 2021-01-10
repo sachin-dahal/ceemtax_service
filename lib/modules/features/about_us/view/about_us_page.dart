@@ -13,10 +13,10 @@ class AboutUsPage extends StatelessWidget {
           children: [
             SizedBox(height: Get.height / 20),
             FadeAnimation(
-              0.5,
+              0.6,
               Center(
                 child: Container(
-                  height: Get.height / 1.6,
+                  height: Get.height / 2,
                   width: Get.width / 1.1,
                   decoration: BoxDecoration(
                     color: kPrimaryColorLight2,
@@ -35,13 +35,16 @@ class AboutUsPage extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Image(
-                            image: AssetImage("images/logo_1.png"),
-                            height: Get.height / 4.0,
+                          FadeAnimation(
+                            0.4,
+                            Image(
+                              image: AssetImage("images/logo_1.png"),
+                              height: Get.height / 4.0,
+                            ),
                           ),
                           Expanded(
                             child: Text(
-                              "A part of Ceem Financial Services. At Ceem Tax Service, our primary focus is to provide an outstanding service to our clients making each and every return count, helping clients with education and customer care.",
+                              "A part of Ceem Financial Services. Here, our primary focus is to provide an outstanding service to our clients making each and every return count, helping clients with education and customer care.",
                               textDirection: TextDirection.ltr,
                               textAlign: TextAlign.end,
                               style: GoogleFonts.rubik(
@@ -53,7 +56,7 @@ class AboutUsPage extends StatelessWidget {
                       SizedBox(height: 10.0),
                       Expanded(
                         child: Text(
-                          "We focus our energy everyday on communicating, understanding and meeting the very specific and unique needs of our clients. \n\nOur registered tax return preparers are professional from the start. With Ceem Tax Service, you won’t have to worry whether your taxes are being properly handled. You can have peace-of-mind knowing you chose your tax preparer wisely. ",
+                          "Our registered tax return preparers are professional from the start. With Ceem Tax Service, you won’t have to worry whether your taxes are being properly handled. You can have peace-of-mind knowing you chose your tax preparer wisely. ",
                           textDirection: TextDirection.ltr,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.rubik(

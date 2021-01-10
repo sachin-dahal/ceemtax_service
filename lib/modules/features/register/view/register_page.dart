@@ -1,15 +1,14 @@
 import 'package:ceemtax_service/modules/data/models/animation/fade_animation.dart';
-import 'package:ceemtax_service/modules/features/home_page/view/home_page.dart';
+import 'package:ceemtax_service/modules/features/login/view/login_page.dart';
 import 'package:ceemtax_service/modules/features/login/widgets/data_textfield_widget.dart';
 import 'package:ceemtax_service/modules/features/login/widgets/login_register_button_widget.dart';
-import 'package:ceemtax_service/modules/features/register/view/register_page.dart';
 import 'package:ceemtax_service/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +62,7 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 children: [
                   FadeAnimation(
-                    0.6,
+                    0.7,
                     DataTextfield(
                       hintText: "Email ID",
                       obscure: false,
@@ -71,7 +70,7 @@ class LoginPage extends StatelessWidget {
                       textInputType: TextInputType.emailAddress,
                     ),
                   ),
-                  SizedBox(height: 15.0),
+                  SizedBox(height: 10.0),
                   FadeAnimation(
                     0.8,
                     DataTextfield(
@@ -80,12 +79,21 @@ class LoginPage extends StatelessWidget {
                       iconData: FontAwesomeIcons.key,
                     ),
                   ),
-                  SizedBox(height: 40.0),
+                  SizedBox(height: 10.0),
                   FadeAnimation(
                     0.9,
+                    DataTextfield(
+                      hintText: "Re-type Password",
+                      obscure: true,
+                      iconData: FontAwesomeIcons.key,
+                    ),
+                  ),
+                  SizedBox(height: 30.0),
+                  FadeAnimation(
+                    1,
                     LoginRegisterButton(
-                      title: "SIGN IN",
-                      onPressed: () => Get.to(HomePage()),
+                      title: "REGISTER",
+                      onPressed: () {},
                     ),
                   ),
                   SizedBox(height: 20.0),
@@ -94,7 +102,7 @@ class LoginPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Not a user? ",
+                          "Already a user? ",
                           style: GoogleFonts.poppins(
                             textStyle: TextStyle(
                               letterSpacing: 1.1,
@@ -102,9 +110,9 @@ class LoginPage extends StatelessWidget {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () => Get.to(RegisterPage()),
+                          onTap: () => Get.offAll(LoginPage()),
                           child: Text(
-                            "Sign Up",
+                            "Sign In",
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 fontSize: 16.0,
