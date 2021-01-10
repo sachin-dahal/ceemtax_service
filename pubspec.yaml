@@ -19,8 +19,9 @@ dependencies:
   get_it: ^5.0.1
   get_storage: ^1.3.1
   google_fonts: ^1.1.1
-  injectable: null
+  injectable: 
   retrofit: ^1.3.4+1
+  image_picker: ^0.6.7+21
   simple_animations: ^2.4.2
   splashscreen: ^1.3.5
   webview_flutter: ^1.0.7
@@ -32,8 +33,8 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   build_runner: ^1.10.11
-  injectable_generator: null
-  retrofit_generator: null
+  injectable_generator: 
+  retrofit_generator: 
 
 flutter:
   uses-material-design: true

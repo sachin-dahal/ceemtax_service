@@ -3,6 +3,7 @@ import 'package:ceemtax_service/modules/features/login/view/login_page.dart';
 import 'package:ceemtax_service/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() {
@@ -24,14 +25,30 @@ class CeemtaxService extends StatelessWidget {
   Widget build(Object context) {
     return SplashScreen(
       navigateAfterSeconds: LoginPage(),
-      seconds: 3,
+      seconds: 5,
       title: Text(
         'Ceem Tax Service',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+        style: GoogleFonts.poppins(
+          textStyle: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 25.0,
+          ),
+        ),
+      ),
+      loadingTextPadding: EdgeInsets.symmetric(horizontal: 20.0),
+      loadingText: Text(
+        "Feel a peace-of-mind knowing you choose your tax preparer wisely",
+        style: GoogleFonts.poppins(
+          textStyle: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 14.0,
+          ),
+        ),
+        textAlign: TextAlign.center,
       ),
       image: Image(image: AssetImage("images/logo_1.png")),
       backgroundColor: kBackgroundColor1,
-      photoSize: 50.0,
+      photoSize: 100.0,
       loaderColor: Colors.green[400],
     );
   }
