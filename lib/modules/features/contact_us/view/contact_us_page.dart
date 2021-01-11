@@ -1,15 +1,22 @@
-import 'package:ceemtax_service/theme/colors.dart';
+import 'package:ceemtax_service/modules/data/models/animation/fade_animation.dart';
+import 'package:ceemtax_service/modules/features/contact_us/controller/contact_us_controller.dart';
+import 'package:ceemtax_service/modules/features/contact_us/widgets/contact_textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ContactUsPage extends StatelessWidget {
-  int date = DateTime.now().year;
+  final ContactUsController _contactUsController =
+      Get.put(ContactUsController());
+
   @override
   Widget build(BuildContext context) {
+    _contactUsController.clearFields();
+
     return Scaffold(
       body: SingleChildScrollView(
-              child: Column(
+        physics: BouncingScrollPhysics(),
+        child: Column(
           children: <Widget>[
             SizedBox(height: Get.height / 35),
             Text(
@@ -25,10 +32,13 @@ class ContactUsPage extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Center(
-              child: Image.asset(
-                'images/contactus.png',
-                height: 150,
+            FadeAnimation(
+              0.6,
+              Center(
+                child: Image.asset(
+                  'images/contactus.png',
+                  height: 150,
+                ),
               ),
             ),
             SizedBox(
@@ -48,109 +58,48 @@ class ContactUsPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 children: [
-                  TextField(
-                    style: GoogleFonts.rubik(
-                      textStyle: TextStyle(
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    decoration: InputDecoration(
-                      hintText: "Subject",
-                      hintStyle: GoogleFonts.rubik(
-                        textStyle: TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: kButtonColor1,
-                        ),
-                      ),
-                      isDense: true,
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 18.0,
-                        horizontal: 15.0,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: kButtonColor1,
-                          width: 2.0,
-                        ),
-                      ),
+                  FadeAnimation(
+                    0.8,
+                    ContactTextField(
+                      textEditingController:
+                          _contactUsController.subjectController,
+                      title: "Subject",
                     ),
                   ),
                   SizedBox(height: 15),
-                  TextField(
-                    maxLines: 5,
-                    style: GoogleFonts.rubik(
-                      textStyle: TextStyle(
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    decoration: InputDecoration(
-                      hintText: "Message",
-                      hintStyle: GoogleFonts.rubik(
-                        textStyle: TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: kButtonColor1,
-                        ),
-                      ),
-                      isDense: true,
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 18.0,
-                        horizontal: 15.0,
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: kButtonColor1,
-                          width: 2.0,
-                        ),
-                      ),
+                  FadeAnimation(
+                    1,
+                    ContactTextField(
+                      textEditingController:
+                          _contactUsController.bodyController,
+                      title: "Message",
+                      lines: 6,
                     ),
                   ),
                 ],
               ),
             ),
             SizedBox(height: 30),
-            ButtonTheme(
-              minWidth: Get.width/1.5,
-              buttonColor: kBackgroundColor2.withOpacity(0.5),
-              child: RaisedButton(
-                onPressed: () {},
-                elevation: 15.0,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Text(
-                  "SEND",
-                  style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w600,
-                      color: kPrimaryColorLight2,
-                      letterSpacing: 1.1,
-                    ),
-                  ),
-                ),
+            FadeAnimation(
+              1.1,
+              GetBuilder<ContactUsController>(
+                builder: (_contactUsController) {
+                  return _contactUsController.buildContactButton();
+                },
               ),
             ),
             SizedBox(height: 30),
             Align(
               alignment: Alignment.bottomCenter,
               child: Text(
-                "Copyright (C) ${date.toString()}. Ceem Tax Service\nAll Rights Reserved.",
+                "Copyright (C) ${_contactUsController.date.toString()}. Ceem Tax Service\nAll Rights Reserved.",
                 style: GoogleFonts.rubik(
                   textStyle: TextStyle(color: Colors.grey[500]),
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
+            SizedBox(height: 30),
           ],
         ),
       ),
