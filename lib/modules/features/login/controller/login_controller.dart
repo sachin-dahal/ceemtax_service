@@ -23,7 +23,6 @@ class LoginController extends BasePageController {
       bool emailValid = RegExp(
               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
           .hasMatch(email);
-
       bool pwValid = password.length > 6;
 
       if (!emailValid) {
@@ -39,7 +38,7 @@ class LoginController extends BasePageController {
     }
   }
 
-  // sign in with firebase
+  // sign in here
 
   //
 

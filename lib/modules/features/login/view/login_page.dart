@@ -92,9 +92,19 @@ class LoginPage extends StatelessWidget {
                     LoginRegisterButton(
                       title: "SIGN IN",
                       onPressed: () {
-                        _loginController.fieldValidation(
+                        bool field = _loginController.fieldValidation(
                             _loginController.idController.text,
                             _loginController.pwController.text);
+
+                        if (field == true) {
+                          Get.snackbar("Fine", "Logged In",
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundGradient: LinearGradient(
+                                colors: [Colors.green, Colors.blue],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ));
+                        }
                       },
                     ),
                   ),

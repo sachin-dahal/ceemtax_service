@@ -2,6 +2,7 @@ import 'package:ceemtax_service/modules/data/models/animation/fade_animation.dar
 import 'package:ceemtax_service/modules/features/login/view/login_page.dart';
 import 'package:ceemtax_service/modules/features/login/widgets/data_textfield_widget.dart';
 import 'package:ceemtax_service/modules/features/login/widgets/login_register_button_widget.dart';
+import 'package:ceemtax_service/modules/features/register/controller/register_controller.dart';
 import 'package:ceemtax_service/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +10,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterPage extends StatelessWidget {
+  final RegisterController _registerController = Get.put(RegisterController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,8 +65,10 @@ class RegisterPage extends StatelessWidget {
               child: Column(
                 children: [
                   FadeAnimation(
-                    0.7,
+                    0.4,
                     DataTextfield(
+                      textEditingController:
+                          _registerController.idTextController,
                       hintText: "Email ID",
                       obscure: false,
                       iconData: FontAwesomeIcons.userAlt,
@@ -72,8 +77,10 @@ class RegisterPage extends StatelessWidget {
                   ),
                   SizedBox(height: 10.0),
                   FadeAnimation(
-                    0.8,
+                    0.5,
                     DataTextfield(
+                      textEditingController:
+                          _registerController.pw1TextController,
                       hintText: "Password",
                       obscure: true,
                       iconData: FontAwesomeIcons.key,
@@ -81,8 +88,10 @@ class RegisterPage extends StatelessWidget {
                   ),
                   SizedBox(height: 10.0),
                   FadeAnimation(
-                    0.9,
+                    0.6,
                     DataTextfield(
+                      textEditingController:
+                          _registerController.pw2TextController,
                       hintText: "Re-type Password",
                       obscure: true,
                       iconData: FontAwesomeIcons.key,
@@ -90,48 +99,70 @@ class RegisterPage extends StatelessWidget {
                   ),
                   SizedBox(height: 30.0),
                   FadeAnimation(
-                    1,
+                    0.7,
                     LoginRegisterButton(
                       title: "REGISTER",
-                      onPressed: () {},
+                      onPressed: () {
+                        bool pw = _registerController.reTypePasswordValidation(
+                          _registerController.pw1TextController.text,
+                          _registerController.pw2TextController.text,
+                        );
+
+                        bool field = _registerController.fieldValidation(
+                          _registerController.idTextController.text,
+                          _registerController.pw1TextController.text,
+                        );
+
+                        if (pw == true && field == true) {
+                          Get.snackbar("Fine", "Registered",
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundGradient: LinearGradient(
+                                colors: [Colors.green, Colors.blue],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ));
+                        }
+                      },
                     ),
                   ),
                   SizedBox(height: 20.0),
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Already a user? ",
-                          style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                              letterSpacing: 1.1,
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () => Get.offAll(LoginPage()),
-                          child: Text(
-                            "Sign In",
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.w600,
-                                color: kButtonColor2,
-                                letterSpacing: 1.1,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  Center(child: _buildBelowNav()),
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildBelowNav() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          "Already a user? ",
+          style: GoogleFonts.poppins(
+            textStyle: TextStyle(
+              letterSpacing: 1.1,
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () => Get.offAll(LoginPage()),
+          child: Text(
+            "Sign In",
+            style: GoogleFonts.poppins(
+              textStyle: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w600,
+                color: kButtonColor2,
+                letterSpacing: 1.1,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
