@@ -33,7 +33,7 @@ class ContactUsPage extends StatelessWidget {
               height: 20,
             ),
             FadeAnimation(
-              0.6,
+              0.3,
               Center(
                 child: Image.asset(
                   'images/contactus.png',
@@ -59,7 +59,7 @@ class ContactUsPage extends StatelessWidget {
               child: Column(
                 children: [
                   FadeAnimation(
-                    0.8,
+                    0.5,
                     ContactTextField(
                       textEditingController:
                           _contactUsController.subjectController,
@@ -68,12 +68,11 @@ class ContactUsPage extends StatelessWidget {
                   ),
                   SizedBox(height: 15),
                   FadeAnimation(
-                    1,
+                    0.7,
                     ContactTextField(
                       textEditingController:
                           _contactUsController.bodyController,
                       title: "Message",
-                      lines: 6,
                     ),
                   ),
                 ],
@@ -81,7 +80,7 @@ class ContactUsPage extends StatelessWidget {
             ),
             SizedBox(height: 30),
             FadeAnimation(
-              1.1,
+              0.8,
               GetBuilder<ContactUsController>(
                 builder: (_contactUsController) {
                   return _contactUsController.buildContactButton();

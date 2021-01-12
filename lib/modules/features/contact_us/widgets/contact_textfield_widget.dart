@@ -4,12 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ContactTextField extends StatelessWidget {
   final String title;
-  final int lines;
   final TextEditingController textEditingController;
 
   ContactTextField({
     this.title,
-    this.lines,
     this.textEditingController,
   });
 
