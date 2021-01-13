@@ -45,6 +45,7 @@ class RegisterController extends LoginController {
   // );
 
   // register process here
+  
 
   //
 

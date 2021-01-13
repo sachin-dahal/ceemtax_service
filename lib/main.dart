@@ -1,3 +1,5 @@
+import 'package:ceemtax_service/modules/features/form/view/form_details_page.dart';
+import 'package:ceemtax_service/modules/features/form/view/form_image_page.dart';
 import 'package:ceemtax_service/modules/features/home_page/view/home_page.dart';
 import 'package:ceemtax_service/modules/features/login/view/login_page.dart';
 import 'package:ceemtax_service/theme/colors.dart';
@@ -24,8 +26,8 @@ class CeemtaxService extends StatelessWidget {
   @override
   Widget build(Object context) {
     return SplashScreen(
-      navigateAfterSeconds: LoginPage(),
-      seconds: 5,
+      navigateAfterSeconds: FormDetailsPage(),
+      seconds: 4,
       title: Text(
         'Ceem Tax Service',
         style: GoogleFonts.poppins(
