@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "402387368274",
+    "project_id": "ceemtax-475e9",
+    "storage_bucket": "ceemtax-475e9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402387368274:android:76b60b6fac603967f7228b",
+        "android_client_info": {
+          "package_name": "com.example.ceemtax_service"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402387368274-6rhdul5up0m6nm9der7ppva13fbd3adn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1HK4khjsoEBC-66lLtFICQpF0W7m0TSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402387368274-6rhdul5up0m6nm9der7ppva13fbd3adn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
