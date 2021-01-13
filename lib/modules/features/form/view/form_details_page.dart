@@ -1,4 +1,5 @@
 import 'package:ceemtax_service/modules/features/form/utilities/mask_format_text.dart';
+import 'package:ceemtax_service/modules/features/form/utilities/us_state_list.dart';
 import 'package:ceemtax_service/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -152,9 +153,27 @@ class FormDetailsPage extends StatelessWidget {
                   attribute: 'city',
                   label: "City",
                   focusNode: focusNode,
-                  validators: [],
+                  validators: [
+                    FormBuilderValidators.required(),
+                  ],
                 ),
-
+                SizedBox(height: Get.height / 25),
+                _buildUSStatesDropdown(),
+                SizedBox(height: Get.height / 25),
+                _buildPhoneTextField(focusNode),
+                SizedBox(height: Get.height / 25),
+                _buildFormNormalTextField(
+                    attribute: "email",
+                    label: "Email Address",
+                    validators: [
+                      FormBuilderValidators.required(),
+                      FormBuilderValidators.email(),
+                    ]),
+                SizedBox(height: Get.height / 25),
+                _buildPaymentDropdown(),
+                SizedBox(height: Get.height / 25),
+                _buildCommentTextField(focusNode),
+                SizedBox(height: Get.height / 20),
                 //--------------------
                 //   BUTTON
                 //--------------------
@@ -167,27 +186,121 @@ class FormDetailsPage extends StatelessWidget {
                           .toList();
                       print(formList);
                       showDialog(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                                title: Text("Form inputs"),
-                                content: Text("$formList"),
-                                actions: <Widget>[
-                                  FlatButton(
-                                    child: Text('Close'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  )
-                                ],
-                              ));
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: Text("Form inputs"),
+                          content: Text("$formList"),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text('Close'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            )
+                          ],
+                        ),
+                      );
                     }
                   },
                   child: Text("Press"),
-                )
+                ),
+                SizedBox(height: Get.height / 20),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildCommentTextField(FocusScopeNode focusNode) {
+    return FormBuilderTextField(
+                attribute: "comment",
+                maxLines: 1,
+                style: GoogleFonts.rubik(color: Colors.black87),
+                onEditingComplete: () => focusNode.unfocus(),
+                decoration: InputDecoration(
+                  labelText: "Comment",
+                  labelStyle: GoogleFonts.rubik(),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  filled: true,
+                  contentPadding:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                  fillColor: kPrimaryColor.withOpacity(0.5),
+                ),
+              );
+  }
+
+  FormBuilderDropdown<String> _buildPaymentDropdown() {
+    return FormBuilderDropdown(
+      attribute: "payment",
+      items: ["Withhold Fees From Refund", "Pay at Time of Filing"]
+          .map((paymentOption) => DropdownMenuItem(
+                value: paymentOption,
+                child: Text("$paymentOption"),
+              ))
+          .toList(),
+      style: GoogleFonts.rubik(color: Colors.black87),
+      decoration: InputDecoration(
+        labelText: "Payment",
+        labelStyle: GoogleFonts.rubik(),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        filled: true,
+        contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+        fillColor: kPrimaryColor.withOpacity(0.5),
+      ),
+    );
+  }
+
+  Widget _buildPhoneTextField(FocusScopeNode focusNode) {
+    return FormBuilderPhoneField(
+      attribute: "phone_number",
+      maxLines: 1,
+      validators: [
+        FormBuilderValidators.required(),
+      ],
+      onEditingComplete: () => focusNode.nextFocus(),
+      style: GoogleFonts.rubik(color: Colors.black87),
+      decoration: InputDecoration(
+        labelText: "Phone/Cellular Number",
+        labelStyle: GoogleFonts.rubik(),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        filled: true,
+        contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+        fillColor: kPrimaryColor.withOpacity(0.5),
+      ),
+    );
+  }
+
+  FormBuilderDropdown<String> _buildUSStatesDropdown() {
+    return FormBuilderDropdown(
+      attribute: "state",
+      items: usState
+          .map((state) => DropdownMenuItem(
+                value: state,
+                child: Text("$state"),
+              ))
+          .toList(),
+      style: GoogleFonts.rubik(color: Colors.black87),
+      decoration: InputDecoration(
+        labelText: "State",
+        labelStyle: GoogleFonts.rubik(),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        filled: true,
+        contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+        fillColor: kPrimaryColor.withOpacity(0.5),
       ),
     );
   }
@@ -270,6 +383,7 @@ class FormDetailsPage extends StatelessWidget {
     return FormBuilderTextField(
       attribute: attribute,
       keyboardType: keyboardType,
+      maxLines: 1,
       style: GoogleFonts.rubik(color: Colors.black87),
       validators: validators,
       onEditingComplete: () => focusNode.nextFocus(),
@@ -294,6 +408,7 @@ class FormDetailsPage extends StatelessWidget {
   }) {
     return FormBuilderTextField(
       attribute: attribute,
+      maxLines: 1,
       validators: [
         FormBuilderValidators.required(),
       ],
@@ -344,35 +459,3 @@ class FormDetailsPage extends StatelessWidget {
     );
   }
 }
-
-//               SizedBox(height: Get.height / 25),
-//               TextField(
-//                 style: GoogleFonts.rubik(color: Colors.black87),
-//                 onTap: () async {
-//                   await showDatePicker(
-//                           context: context,
-//                           initialDate: DateTime.now(),
-//                           firstDate: DateTime(1940),
-//                           lastDate: DateTime(2100))
-//                       .then((pickedDate) {
-//                     var date = "${pickedDate.day.toString()}-" +
-//                         "${pickedDate.month.toString()}-" +
-//                         "${pickedDate.year.toString()}";
-//                     _dateController.text = date;
-//                   });
-//                 },
-//                 readOnly: true,
-//                 controller: _dateController,
-//                 decoration: InputDecoration(
-//                   labelText: "Date of Birth",
-//                   labelStyle: GoogleFonts.rubik(),
-//                   border: OutlineInputBorder(
-//                     borderSide: BorderSide.none,
-//                     borderRadius: BorderRadius.circular(10.0),
-//                   ),
-//                   filled: true,
-//                   contentPadding:
-//                       EdgeInsets.symmetric(vertical: 12.0, horizontal: 15.0),
-//                   fillColor: kPrimaryColor.withOpacity(0.5),
-//                 ),
-//               ),
