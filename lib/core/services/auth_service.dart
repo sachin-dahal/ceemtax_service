@@ -1,4 +1,5 @@
 import 'package:ceemtax_service/core/logger/logger.dart';
+import 'package:ceemtax_service/data_source/authentication/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -9,8 +10,13 @@ class AuthService {
       UserCredential _userCredential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       User _firebaseUser = _userCredential.user;
+      UserModel user = UserModel(
+        uid: _firebaseUser.uid,
+        email: _firebaseUser.email,
+      );
       Log.debug("Sign In USER: ", _firebaseUser.toString());
-      return _firebaseUser;
+      Log.debug("Sign In User Model: ", user.uid + " " + user.email);
+      return user;
     } catch (e) {
       throw "Error occured while signing in";
     }
@@ -25,8 +31,13 @@ class AuthService {
       UserCredential _userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
       User _firebaseUser = _userCredential.user;
-      Log.debug("Sign In USER: ", _firebaseUser.toString());
-      return _firebaseUser;
+      UserModel user = UserModel(
+        uid: _firebaseUser.uid,
+        email: _firebaseUser.email,
+      );
+      Log.debug("REGISTER USER: ", _firebaseUser.toString());
+      Log.debug("Register User Model: ", user.uid + " " + user.email);
+      return user;
     } catch (e) {
       throw "Error occured while regestering user";
     }
