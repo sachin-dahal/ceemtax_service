@@ -1,4 +1,6 @@
+import 'package:ceemtax_service/core/logger/logger.dart';
 import 'package:ceemtax_service/modules/data/models/animation/fade_animation.dart';
+import 'package:ceemtax_service/modules/features/home_page/view/home_page.dart';
 import 'package:ceemtax_service/modules/features/login/view/login_page.dart';
 import 'package:ceemtax_service/modules/features/login/widgets/data_textfield_widget.dart';
 import 'package:ceemtax_service/modules/features/login/widgets/login_register_button_widget.dart';
@@ -55,83 +57,94 @@ class RegisterPage extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-              height: Get.height / 2,
-              width: Get.width,
-              padding: EdgeInsets.symmetric(
-                vertical: 10.0,
-                horizontal: 20.0,
-              ),
-              child: Column(
-                children: [
-                  FadeAnimation(
-                    0.4,
-                    DataTextfield(
-                      textEditingController:
-                          _registerController.idTextController,
-                      hintText: "Email ID",
-                      obscure: false,
-                      iconData: FontAwesomeIcons.userAlt,
-                      textInputType: TextInputType.emailAddress,
-                    ),
-                  ),
-                  SizedBox(height: 10.0),
-                  FadeAnimation(
-                    0.5,
-                    DataTextfield(
-                      textEditingController:
-                          _registerController.pw1TextController,
-                      hintText: "Password",
-                      obscure: true,
-                      iconData: FontAwesomeIcons.key,
-                    ),
-                  ),
-                  SizedBox(height: 10.0),
-                  FadeAnimation(
-                    0.6,
-                    DataTextfield(
-                      textEditingController:
-                          _registerController.pw2TextController,
-                      hintText: "Re-type Password",
-                      obscure: true,
-                      iconData: FontAwesomeIcons.key,
-                    ),
-                  ),
-                  SizedBox(height: 30.0),
-                  FadeAnimation(
-                    0.7,
-                    LoginRegisterButton(
-                      title: "REGISTER",
-                      onPressed: () {
-                        bool pw = _registerController.reTypePasswordValidation(
-                          _registerController.pw1TextController.text,
-                          _registerController.pw2TextController.text,
-                        );
-
-                        bool field = _registerController.fieldValidation(
-                          _registerController.idTextController.text,
-                          _registerController.pw1TextController.text,
-                        );
-
-                        if (pw == true && field == true) {
-                          Get.snackbar("Fine", "Registered",
-                              snackPosition: SnackPosition.BOTTOM,
-                              backgroundGradient: LinearGradient(
-                                colors: [Colors.green, Colors.blue],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ));
-                        }
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  Center(child: _buildBelowNav()),
-                ],
-              ),
-            ),
+            _buildFormFragment(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildFormFragment() {
+    return Container(
+      height: Get.height / 2,
+      width: Get.width,
+      padding: EdgeInsets.symmetric(
+        vertical: 10.0,
+        horizontal: 20.0,
+      ),
+      child: Column(
+        children: [
+          FadeAnimation(
+            0.4,
+            DataTextfield(
+              textEditingController: _registerController.idTextController,
+              hintText: "Email ID",
+              obscure: false,
+              iconData: FontAwesomeIcons.userAlt,
+              textInputType: TextInputType.emailAddress,
+            ),
+          ),
+          SizedBox(height: 10.0),
+          FadeAnimation(
+            0.5,
+            DataTextfield(
+              textEditingController: _registerController.pw1TextController,
+              hintText: "Password",
+              obscure: true,
+              iconData: FontAwesomeIcons.key,
+            ),
+          ),
+          SizedBox(height: 10.0),
+          FadeAnimation(
+            0.6,
+            DataTextfield(
+              textEditingController: _registerController.pw2TextController,
+              hintText: "Re-type Password",
+              obscure: true,
+              iconData: FontAwesomeIcons.key,
+            ),
+          ),
+          SizedBox(height: 30.0),
+          FadeAnimation(
+            0.7,
+            LoginRegisterButton(
+              title: "REGISTER",
+              onPressed: () {
+                bool pw = _registerController.reTypePasswordValidation(
+                  _registerController.pw1TextController.text,
+                  _registerController.pw2TextController.text,
+                );
+
+                bool field = _registerController.fieldValidation(
+                  _registerController.idTextController.text,
+                  _registerController.pw1TextController.text,
+                );
+
+                if (pw == true && field == true) {
+                  var user = _registerController.registerUser();
+                  if (user == null) {
+                    Get.snackbar("Error", "Error while regestering",
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundGradient: LinearGradient(
+                          colors: [Colors.green, Colors.blue],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ));
+                    return;
+                  } else {
+                    Get.to(HomePage());
+                    _registerController.idTextController.clear();
+                    _registerController.pw1TextController.clear();
+                    _registerController.pw2TextController.clear();
+                    Log.debug("REGISTER USER: ", user.toString());
+                  }
+                }
+              },
+            ),
+          ),
+          SizedBox(height: 20.0),
+          Center(child: _buildBelowNav()),
+        ],
       ),
     );
   }

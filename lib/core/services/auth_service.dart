@@ -17,8 +17,13 @@ class AuthService {
       Log.debug("Sign In USER: ", _firebaseUser.toString());
       Log.debug("Sign In User Model: ", user.uid + " " + user.email);
       return user;
-    } catch (e) {
-      throw "Error occured while signing in";
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+      return null;
     }
   }
 
