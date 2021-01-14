@@ -1,14 +1,15 @@
-import 'package:ceemtax_service/modules/features/form/view/form_details_page.dart';
-import 'package:ceemtax_service/modules/features/form/view/form_image_page.dart';
-import 'package:ceemtax_service/modules/features/home_page/view/home_page.dart';
 import 'package:ceemtax_service/modules/features/login/view/login_page.dart';
 import 'package:ceemtax_service/theme/colors.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:splashscreen/splashscreen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -26,7 +27,7 @@ class CeemtaxService extends StatelessWidget {
   @override
   Widget build(Object context) {
     return SplashScreen(
-      navigateAfterSeconds: FormDetailsPage(),
+      navigateAfterSeconds: LoginPage(),
       seconds: 4,
       title: Text(
         'Ceem Tax Service',
