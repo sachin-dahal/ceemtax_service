@@ -43,14 +43,17 @@ class HomePage extends StatelessWidget {
               child: Container(
                 height: Get.height / 4.5,
                 width: Get.width / 1.2,
-                child: Image(
-                  image: AssetImage("images/banner.png"),
-                  fit: BoxFit.cover,
+                child: FadeAnimation(
+                  0.5,
+                  Image(
+                    image: AssetImage("images/banner.png"),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
             FadeAnimation(
-              1.0,
+              0.6,
               HomePageButton(
                 title: "APPOINTMENT",
                 onPressed: () => Get.to(AppointmentPage()),
@@ -58,7 +61,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: Get.height / 20),
             FadeAnimation(
-              1.2,
+              0.7,
               HomePageButton(
                 title: "FILL FORM",
                 onPressed: () {},
@@ -66,7 +69,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: Get.height / 20),
             FadeAnimation(
-              1.4,
+              0.8,
               HomePageButton(
                 title: "CONTACT US",
                 onPressed: () => Get.to(ContactUsPage()),
@@ -74,7 +77,7 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: Get.height / 20),
             FadeAnimation(
-              1.6,
+              0.9,
               HomePageButton(
                 title: "ABOUT US",
                 onPressed: () => Get.to(AboutUsPage()),
