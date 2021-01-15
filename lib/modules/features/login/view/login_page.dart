@@ -10,56 +10,66 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final LoginController _loginController = Get.put(LoginController());
+  bool _showSpinner = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimaryColorLight1,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: Get.height / 2,
-              width: Get.width,
-              color: kBackgroundColor2.withOpacity(0.5),
-              padding: EdgeInsets.symmetric(
-                vertical: 20.0,
-                horizontal: 30.0,
-              ),
-              child: Column(
-                children: [
-                  Image(
-                    image: AssetImage("images/logo_1.png"),
-                    height: Get.height / 5,
-                  ),
-                  Text(
-                    "Ceem Tax Service",
-                    style: GoogleFonts.poppins(
-                      textStyle: TextStyle(
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1.2,
+      body: ModalProgressHUD(
+        inAsyncCall: _showSpinner,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: Get.height / 2,
+                width: Get.width,
+                color: kBackgroundColor2.withOpacity(0.5),
+                padding: EdgeInsets.symmetric(
+                  vertical: 20.0,
+                  horizontal: 30.0,
+                ),
+                child: Column(
+                  children: [
+                    Image(
+                      image: AssetImage("images/logo_1.png"),
+                      height: Get.height / 5,
+                    ),
+                    Text(
+                      "Ceem Tax Service",
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 1.2,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 40.0),
-                  Text(
-                    "We focus our energy everyday on understanding the specific and unique needs of our clients.",
-                    style: GoogleFonts.rubik(
-                      textStyle: TextStyle(
-                        fontSize: 16.0,
+                    SizedBox(height: 40.0),
+                    Text(
+                      "We focus our energy everyday on understanding the specific and unique needs of our clients.",
+                      style: GoogleFonts.rubik(
+                        textStyle: TextStyle(
+                          fontSize: 16.0,
+                        ),
                       ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            _buildFormFragment(),
-          ],
+              _buildFormFragment(),
+            ],
+          ),
         ),
       ),
     );
@@ -101,6 +111,10 @@ class LoginPage extends StatelessWidget {
             LoginRegisterButton(
               title: "SIGN IN",
               onPressed: () async {
+                setState(() {
+                  _showSpinner = true;
+                });
+                Log.debug("log 1", "${_loginController.isLogReg.toString()}");
                 bool field = _loginController.fieldValidation(
                     _loginController.idController.text,
                     _loginController.pwController.text);
@@ -123,22 +137,17 @@ class LoginPage extends StatelessWidget {
                       )),
                       backgroundColor: Colors.red[100],
                     );
-                    // Get.snackbar(
-                    //     "Account not found", "Please enter valid details",
-                    //     snackPosition: SnackPosition.BOTTOM,
-                    //     backgroundGradient: LinearGradient(
-                    //       colors: [Colors.green, Colors.blue],
-                    //       begin: Alignment.topLeft,
-                    //       end: Alignment.bottomRight,
-                    //     ));
                     return;
                   } else if (user != null) {
-                    Get.to(HomePage());
+                    Get.offAll(HomePage());
                     _loginController.idController.clear();
                     _loginController.pwController.clear();
                     Log.debug("LOGIN USER: ", user.toString());
                   }
                 }
+                setState(() {
+                  _showSpinner = false;
+                });
               },
             ),
           ),
@@ -162,7 +171,12 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => Get.to(RegisterPage()),
+          onTap: () {
+            Get.to(RegisterPage());
+
+            _loginController.idController.clear();
+            _loginController.pwController.clear();
+          },
           child: Text(
             "Sign Up",
             style: GoogleFonts.poppins(

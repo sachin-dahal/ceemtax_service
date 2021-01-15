@@ -1,6 +1,7 @@
 import 'package:ceemtax_service/modules/features/form/controller/form_page_controller.dart';
 import 'package:ceemtax_service/modules/features/form/utilities/mask_format_text.dart';
 import 'package:ceemtax_service/modules/features/form/utilities/us_state_list.dart';
+import 'package:ceemtax_service/modules/features/form/view/form_image_page.dart';
 import 'package:ceemtax_service/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -184,7 +185,7 @@ class FormDetailsPage extends StatelessWidget {
                   height: Get.height / 20,
                   buttonColor: Colors.blueGrey[300],
                   child: RaisedButton(
-                    onPressed: () async{
+                    onPressed: () async {
                       if (_fbKey.currentState.saveAndValidate()) {
                         final formInputs = _fbKey.currentState.value;
                         List<String> formList = formInputs.entries
@@ -194,9 +195,10 @@ class FormDetailsPage extends StatelessWidget {
 
                         //TODO; FORM SUBMITTED MESSAGE
 
-                        _formPageController.getFormData(formList);
+                        // _formPageController.getFormData(formList);
 
-                        await _formPageController.submitForm();
+                        // await _formPageController.submitForm();
+                        Get.to(FormImagePage(formDetailsList: formList));
 
                         showDialog(
                           context: context,

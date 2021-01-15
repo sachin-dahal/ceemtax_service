@@ -1,10 +1,4 @@
 import 'package:ceemtax_service/core/services/auth_service.dart';
-import 'package:ceemtax_service/modules/features/form/view/demo_form_image_page.dart';
-import 'package:ceemtax_service/modules/features/form/view/form_details_page.dart';
-import 'package:ceemtax_service/modules/features/form/view/form_image_page.dart';
-import 'package:ceemtax_service/modules/features/home_page/view/home_page.dart';
-import 'package:ceemtax_service/modules/features/login/view/login_page.dart';
-import 'package:ceemtax_service/modules/features/register/view/register_page.dart';
 import 'package:ceemtax_service/modules/features/wrapper/view/wrapper.dart';
 import 'package:ceemtax_service/theme/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';

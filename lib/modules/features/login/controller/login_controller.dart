@@ -8,12 +8,18 @@ class LoginController extends BasePageController {
   AuthService _authService = AuthService();
   TextEditingController idController;
   TextEditingController pwController;
+  RxBool isLogReg = false.obs;
 
   @override
   void onInit() {
     super.onInit();
     idController = TextEditingController();
     pwController = TextEditingController();
+  }
+
+  setLogRegLoading([bool loading = true]) {
+    isLogReg = loading.obs;
+    update();
   }
 
   // validation

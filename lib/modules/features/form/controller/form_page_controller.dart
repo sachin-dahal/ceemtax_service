@@ -1,12 +1,14 @@
 import 'dart:io';
 
 import 'package:ceemtax_service/core/modules/base_page_controller.dart';
+import 'package:ceemtax_service/core/services/form_image_service.dart';
 import 'package:ceemtax_service/core/services/form_service.dart';
 import 'package:ceemtax_service/data_source/form_details/models/form.dart';
 import 'package:get_storage/get_storage.dart';
 
 class FormPageController extends BasePageController {
   FormService _formService = FormService();
+  FormImageService _formImageService = FormImageService();
   GetStorage box = GetStorage();
 
   FormModel getFormModel() => FormModel(
@@ -52,10 +54,24 @@ class FormPageController extends BasePageController {
   }
 
   //------------------------------------
-  // Submission
+  // FORM Submission
   //------------------------------------
+  // TODO: add LOADING here
   submitForm() async {
     String _uid = box.read("uid");
     return await _formService.submitForm(getFormModel(), _uid);
+  }
+
+  //------------------------------------
+  // IMAGE Submission
+  //------------------------------------
+  // TODO: add LOADING here
+  submitImage(List<File> file) async {
+    update();
+    file.forEach((e) {
+      return _formImageService.upload(e);
+    });
+    setLoading(false);
+    update();
   }
 }

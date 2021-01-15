@@ -10,55 +10,65 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+  @override
+  _RegisterPageState createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final RegisterController _registerController = Get.put(RegisterController());
+  bool _showSpinner = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimaryColorLight1,
       //resizeToAvoidBottomPadding: false,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: Get.height / 2,
-              width: Get.width,
-              color: kBackgroundColor2.withOpacity(0.5),
-              padding: EdgeInsets.symmetric(
-                vertical: 20.0,
-                horizontal: 30.0,
-              ),
-              child: Column(
-                children: [
-                  Image(
-                    image: AssetImage("images/logo_1.png"),
-                    height: Get.height / 5,
-                  ),
-                  Text("Ceem Tax Service",
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1.2,
-                        ),
-                      )),
-                  SizedBox(height: 40.0),
-                  Text(
-                    "We focus our energy everyday on understanding the specific and unique needs of our clients.",
-                    style: GoogleFonts.rubik(
-                      textStyle: TextStyle(
-                        fontSize: 16.0,
-                      ),
+      body: ModalProgressHUD(
+        inAsyncCall: _showSpinner,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: Get.height / 2,
+                width: Get.width,
+                color: kBackgroundColor2.withOpacity(0.5),
+                padding: EdgeInsets.symmetric(
+                  vertical: 20.0,
+                  horizontal: 30.0,
+                ),
+                child: Column(
+                  children: [
+                    Image(
+                      image: AssetImage("images/logo_1.png"),
+                      height: Get.height / 5,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                    Text("Ceem Tax Service",
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 1.2,
+                          ),
+                        )),
+                    SizedBox(height: 40.0),
+                    Text(
+                      "We focus our energy everyday on understanding the specific and unique needs of our clients.",
+                      style: GoogleFonts.rubik(
+                        textStyle: TextStyle(
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            _buildFormFragment(),
-          ],
+              _buildFormFragment(),
+            ],
+          ),
         ),
       ),
     );
@@ -110,6 +120,12 @@ class RegisterPage extends StatelessWidget {
             LoginRegisterButton(
               title: "REGISTER",
               onPressed: () {
+                setState(() {
+                  _showSpinner = true;
+                });
+                bool emailVal = _registerController
+                    .emailValidation(_registerController.idTextController.text);
+
                 bool pw = _registerController.reTypePasswordValidation(
                   _registerController.pw1TextController.text,
                   _registerController.pw2TextController.text,
@@ -120,7 +136,7 @@ class RegisterPage extends StatelessWidget {
                   _registerController.pw1TextController.text,
                 );
 
-                if (pw == true && field == true) {
+                if (emailVal == true && pw == true && field == true) {
                   var user = _registerController.registerUser();
                   if (user == null) {
                     Get.snackbar("Error", "Error while regestering",
@@ -132,13 +148,16 @@ class RegisterPage extends StatelessWidget {
                         ));
                     return;
                   } else {
-                    Get.to(HomePage());
+                    Get.offAll(HomePage());
                     _registerController.idTextController.clear();
                     _registerController.pw1TextController.clear();
                     _registerController.pw2TextController.clear();
                     Log.debug("REGISTER USER: ", user.toString());
                   }
                 }
+                setState(() {
+                  _showSpinner = false;
+                });
               },
             ),
           ),
@@ -162,7 +181,13 @@ class RegisterPage extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () => Get.offAll(LoginPage()),
+          onTap: () {
+            Get.offAll(LoginPage());
+
+            _registerController.idTextController.clear();
+            _registerController.pw1TextController.clear();
+            _registerController.pw2TextController.clear();
+          },
           child: Text(
             "Sign In",
             style: GoogleFonts.poppins(

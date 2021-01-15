@@ -18,8 +18,25 @@ class RegisterController extends LoginController {
     pw2TextController = TextEditingController();
   }
 
+
   bool fieldValidation(String email, String password) {
     return super.fieldValidation(email, password);
+  }
+
+  bool emailValidation(String email) {
+    bool emailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
+    if (emailValid == false) {
+      Get.snackbar(
+        "INVALID EMAIL",
+        "Please enter a valid email to register",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red[200],
+      );
+      return false;
+    }
+    return true;
   }
 
   bool reTypePasswordValidation(String password1, String password2) {
