@@ -1,9 +1,11 @@
 import 'package:ceemtax_service/core/logger/logger.dart';
 import 'package:ceemtax_service/data_source/authentication/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_storage/get_storage.dart';
 
 class AuthService {
   FirebaseAuth _auth = FirebaseAuth.instance;
+  final GetStorage box = GetStorage();
 
   Future signInWithEmail(String email, String password) async {
     try {
@@ -14,6 +16,7 @@ class AuthService {
         uid: _firebaseUser.uid,
         email: _firebaseUser.email,
       );
+      box.write("uid", user.uid);
       Log.debug("Sign In USER: ", _firebaseUser.toString());
       Log.debug("Sign In User Model: ", user.uid + " " + user.email);
       return user;
@@ -40,6 +43,7 @@ class AuthService {
         uid: _firebaseUser.uid,
         email: _firebaseUser.email,
       );
+      box.write("uid", user.uid);
       Log.debug("REGISTER USER: ", _firebaseUser.toString());
       Log.debug("Register User Model: ", user.uid + " " + user.email);
       return user;
@@ -50,6 +54,7 @@ class AuthService {
 
   Future signOut() async {
     try {
+      box.remove("uid");
       return await _auth.signOut();
     } catch (e) {
       throw "Error occured while regestering user";

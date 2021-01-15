@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ceemtax_service/core/logger/logger.dart';
+import 'package:ceemtax_service/modules/features/form/controller/form_page_controller.dart';
 import 'package:ceemtax_service/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -8,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FormImagePage extends StatelessWidget {
+  final FormPageController _formPageController = Get.put(FormPageController());
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context) {
@@ -145,6 +147,9 @@ class FormImagePage extends StatelessWidget {
                       });
                       Log.debug("Images List", "$formList");
 
+                        // TODO: Check below
+
+                      _formPageController.getImageData(formList);
                       showDialog(
                         context: context,
                         builder: (_) => AlertDialog(

@@ -2,6 +2,7 @@ import 'package:ceemtax_service/modules/data/models/animation/fade_animation.dar
 import 'package:ceemtax_service/modules/features/about_us/view/about_us_page.dart';
 import 'package:ceemtax_service/modules/features/appointment/view/appointment_page.dart';
 import 'package:ceemtax_service/modules/features/contact_us/view/contact_us_page.dart';
+import 'package:ceemtax_service/modules/features/form/view/form_details_page.dart';
 import 'package:ceemtax_service/modules/features/home_page/controller/home_page_controller.dart';
 import 'package:ceemtax_service/modules/features/home_page/widgets/home_page_button_widget.dart';
 import 'package:ceemtax_service/theme/colors.dart';
@@ -64,7 +65,7 @@ class HomePage extends StatelessWidget {
               0.7,
               HomePageButton(
                 title: "FILL FORM",
-                onPressed: () {},
+                onPressed: () => Get.to(FormDetailsPage()),
               ),
             ),
             SizedBox(height: Get.height / 20),

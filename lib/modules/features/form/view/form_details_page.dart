@@ -1,3 +1,4 @@
+import 'package:ceemtax_service/modules/features/form/controller/form_page_controller.dart';
 import 'package:ceemtax_service/modules/features/form/utilities/mask_format_text.dart';
 import 'package:ceemtax_service/modules/features/form/utilities/us_state_list.dart';
 import 'package:ceemtax_service/theme/colors.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FormDetailsPage extends StatelessWidget {
+  final FormPageController _formPageController = Get.put(FormPageController());
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
   final String _ssnPattern =
       "^(?!666|000|9\\d{2})\\d{3}-(?!00)\\d{2}-(?!0{4})\\d{4}\$";
@@ -177,6 +179,59 @@ class FormDetailsPage extends StatelessWidget {
                 //--------------------
                 //   BUTTON
                 //--------------------
+                ButtonTheme(
+                  minWidth: Get.width / 2.4,
+                  height: Get.height / 20,
+                  buttonColor: Colors.blueGrey[300],
+                  child: RaisedButton(
+                    onPressed: () async{
+                      if (_fbKey.currentState.saveAndValidate()) {
+                        final formInputs = _fbKey.currentState.value;
+                        List<String> formList = formInputs.entries
+                            .map((e) => e.value.toString().trim())
+                            .toList();
+                        print(formList);
+
+                        //TODO; FORM SUBMITTED MESSAGE
+
+                        _formPageController.getFormData(formList);
+
+                        await _formPageController.submitForm();
+
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: Text("Form inputs"),
+                            content: Text("$formList"),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text('Close'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              )
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                    elevation: 5.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Text(
+                      "NEXT",
+                      style: GoogleFonts.poppins(
+                        textStyle: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w600,
+                          color: kPrimaryColorLight2,
+                          letterSpacing: 1.1,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 RaisedButton(
                   onPressed: () {
                     if (_fbKey.currentState.saveAndValidate()) {
@@ -215,23 +270,22 @@ class FormDetailsPage extends StatelessWidget {
 
   Widget _buildCommentTextField(FocusScopeNode focusNode) {
     return FormBuilderTextField(
-                attribute: "comment",
-                maxLines: 1,
-                style: GoogleFonts.rubik(color: Colors.black87),
-                onEditingComplete: () => focusNode.unfocus(),
-                decoration: InputDecoration(
-                  labelText: "Comment",
-                  labelStyle: GoogleFonts.rubik(),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  filled: true,
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-                  fillColor: kPrimaryColor.withOpacity(0.5),
-                ),
-              );
+      attribute: "comment",
+      maxLines: 1,
+      style: GoogleFonts.rubik(color: Colors.black87),
+      onEditingComplete: () => focusNode.unfocus(),
+      decoration: InputDecoration(
+        labelText: "Comment",
+        labelStyle: GoogleFonts.rubik(),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        filled: true,
+        contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+        fillColor: kPrimaryColor.withOpacity(0.5),
+      ),
+    );
   }
 
   FormBuilderDropdown<String> _buildPaymentDropdown() {
