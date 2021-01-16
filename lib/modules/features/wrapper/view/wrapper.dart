@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 //--------------------------------------
-//  This is created to redirect user to LoginPage() or HomePage()
+//  Redirect to LoginPage() or HomePage()
 //--------------------------------------
 class WrapperPage extends StatelessWidget {
   //final WrapperController _wrapperController = Get.put(WrapperController());

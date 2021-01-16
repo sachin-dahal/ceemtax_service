@@ -22,7 +22,6 @@ class LoginController extends BasePageController {
     update();
   }
 
-  // validation
   bool fieldValidation(String email, String password) {
     if (email.isEmpty && password.isEmpty) {
       _errorSnackbar(errorMsg: "Empty fields detected!");
@@ -57,8 +56,6 @@ class LoginController extends BasePageController {
       throw "Exception in Login Controller: No user found";
     }
   }
-
-  //
 
   _errorSnackbar({String errorMsg}) {
     return Get.snackbar(

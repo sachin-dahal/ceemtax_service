@@ -57,21 +57,7 @@ class RegisterController extends LoginController {
         idTextController.text, pw1TextController.text);
     return user;
   }
-
-  // bool pw = reTypePasswordValidation(
-  //   pw1TextController.text,
-  //   pw2TextController.text,
-  // );
-
-  // bool field = fieldValidation(
-  //   idTextController.text,
-  //   pw1TextController.text,
-  // );
-
-  // register process here
-
-  //
-
+  
   @override
   void onClose() {
     super.onClose();

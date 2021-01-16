@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ceemtax_service">
+
+      <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="ceemtax_service"
+        android:name="androidx.multidex.MultiDexApplication"
+        android:label="Ceem Tax Service"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

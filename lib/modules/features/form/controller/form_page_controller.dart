@@ -36,7 +36,6 @@ class FormPageController extends BasePageController {
   // Form Details
   //------------------------------------
   List<String> formData = [];
-  // get list of formData
   List<String> getFormData(List<String> formDataHere) {
     formData = formDataHere;
     update();
@@ -56,7 +55,6 @@ class FormPageController extends BasePageController {
   //------------------------------------
   // FORM Submission
   //------------------------------------
-  // TODO: add LOADING here
   submitForm() async {
     String _uid = box.read("uid");
     return await _formService.submitForm(getFormModel(), _uid);
@@ -65,7 +63,6 @@ class FormPageController extends BasePageController {
   //------------------------------------
   // IMAGE Submission
   //------------------------------------
-  // TODO: add LOADING here
   submitImage(List<File> file) async {
     update();
     file.forEach((e) {

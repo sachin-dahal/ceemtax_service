@@ -41,28 +41,6 @@ class FormModel {
     this.comment,
   });
 
-  FormModel.fromJson(Map<String, dynamic> json) {
-    firstName = json['first_name'];
-    middleName = json['middle_name'];
-    lastName = json['last_name'];
-    dateOfBirth = json['date_of_birth'];
-    ssn = json['ssn'];
-    numberOfDependents = json['number_of_dependents'];
-    driverLicenseId = json['driver_license_id'];
-    idIssueDate = json['id_issue_date'];
-    idExpiryDate = json['id_expiry_date'];
-    occupation = json['occupation'];
-    address1 = json['address_1'];
-    address2 = json['address_2'];
-    zipCode = json['zip_code'];
-    city = json['city'];
-    state = json['state'];
-    phoneNumber = json['phone_number'];
-    email = json['email'];
-    payment = json['payment'];
-    comment = json['comment'];
-  }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['first_name'] = this.firstName;
