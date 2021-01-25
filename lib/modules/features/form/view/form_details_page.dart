@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:ceemtax_service/modules/features/form/controller/form_page_controller.dart';
 import 'package:ceemtax_service/modules/features/form/utilities/mask_format_text.dart';
 import 'package:ceemtax_service/modules/features/form/utilities/us_state_list.dart';
@@ -78,8 +80,8 @@ class FormDetailsPage extends StatelessWidget {
                     keyboardType: TextInputType.number,
                     focusNode: focusNode,
                     validators: [
-                      FormBuilderValidators.min(1, errorText: "More then 1"),
-                      FormBuilderValidators.max(20, errorText: "Less than 20"),
+                       FormBuilderValidators.min(1, errorText: "More then 1"),
+                       FormBuilderValidators.max(20, errorText: "Less than 20"),
                     ]),
                 SizedBox(height: Get.height / 25),
                 _buildDriverLicenseTextField(focusNode),

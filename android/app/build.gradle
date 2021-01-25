@@ -30,6 +30,11 @@ apply plugin: 'com.google.gms.google-services'
 android {
     compileSdkVersion 28
 
+    lintOptions {
+        disable 'InvalidPackage'
+        checkReleaseBuilds false //Insert this line
+    }
+
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
